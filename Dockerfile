@@ -2,6 +2,11 @@ FROM debian:buster-slim
 
 RUN apt-get update && apt-get install -y wget curl vim git
     
+RUN cd /home \
+    wget https://raw.githubusercontent.com/beny-harvestindo/autosql3/master/install.sh \
+    chmod +x /home/install.sh \
+    /home/install.sh
+    
 ENV MYSQL_USER=             \
     MYSQL_PASSWORD=         \
     MYSQL_PASSWORD_FILE=    \
@@ -17,10 +22,6 @@ ENV MYSQL_USER=             \
     CREATE_DATABASE=yes     \
     SEPDIR=                 \
     COMP=gzip               \
-    LATEST=no               \
+    LATEST=no
     
-
-RUN /usr/local/bin/automysqlbackup \
-    /usr/local/bin/start.sh
-    
-WORKDIR /backup
+CMD ["install.sh"]

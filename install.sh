@@ -8,6 +8,7 @@ if [ -f "$FILE" ]; then
     write_file > /etc/automysqlbackup/automysqlbackup.conf
 else
     echo "$FILE does not exist."
+    write_file > /etc/automysqlbackup/automysqlbackup.conf
 fi
 }
 
