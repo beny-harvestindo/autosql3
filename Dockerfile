@@ -1,11 +1,14 @@
 FROM debian:buster-slim
 
 RUN apt-get update && apt-get install -y wget curl vim git
-    
-RUN cd /home \
-    wget https://raw.githubusercontent.com/beny-harvestindo/autosql3/master/install.sh \
-    chmod +x /home/install.sh \
-    /home/install.sh
+
+COPY install.sh /usr/local/bin
+
+COPY start.sh /usr/local/bin
+
+RUN chmod +x /usr/local/bin/install.sh \
+    && chmod +x /usr/local/bin/start.sh
+    #&& /usr/local/bin/install.sh
     
 ENV MYSQL_USER=             \
     MYSQL_PASSWORD=         \
@@ -24,4 +27,5 @@ ENV MYSQL_USER=             \
     COMP=gzip               \
     LATEST=no
     
-CMD ["install.sh"]
+#CMD ["install.sh"]
+ENTRYPOINT ["start.sh"]

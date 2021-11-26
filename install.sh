@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
+##!####/bin/sh
 #
+
+set -e
+
 check_file() {
 FILE=/etc/automysqlbackup/automysqlbackup.conf
 if [ -f "$FILE" ]; then
     echo "$FILE found. Destroying..."
-    rm -f $FILE
-    write_file > /etc/automysqlbackup/automysqlbackup.conf
+    #rm -f $FILE
+    write_file >> /etc/automysqlbackup/automysqlbackup.conf
 else
     echo "$FILE does not exist."
     mkdir -p /etc/automysqlbackup
+    echo "creating file"
     touch /etc/automysqlbackup/automysqlbackup.conf
-    write_file > /etc/automysqlbackup/automysqlbackup.conf
+    write_file >> /etc/automysqlbackup/automysqlbackup.conf
+    echo "done"
 fi
 }
 
@@ -83,7 +89,7 @@ write_file(){
     echo "# List of databases for Daily/Weekly Backup e.g. ( 'DB1' 'DB2' 'DB3' ... )"
     echo "# set to (), i.e. empty, if you want to backup all databases"
     if [[ -z "${DBNAMES}" ]]; then
-        echo "CONFIG_db_names=()"
+        echo "#CONFIG_db_names=()"
     else
         echo "CONFIG_db_names=('$DBNAMES')"
     fi
@@ -94,7 +100,7 @@ write_file(){
     echo "# List of databases for Monthly Backups."
     echo "# set to (), i.e. empty, if you want to backup all databases"
     if [[ -z "${MDBNAMES}" ]]; then
-        echo "CONFIG_db_month_names=()"
+        echo "#CONFIG_db_month_names=()"
     else
         echo "CONFIG_db_month_names=('$MDBNAMES')"
     fi
@@ -240,9 +246,9 @@ write_file(){
     echo ""
     echo "# Choose Compression type. (gzip or bzip2)"
     if [[ -z "${COMP}" ]]; then
-        echo "#CONFIG_mysql_dump_compression='gzip'"
+        echo "CONFIG_mysql_dump_compression='gzip'"
     else
-        echo "#CONFIG_mysql_dump_compression='"$COMP"'"
+        echo "CONFIG_mysql_dump_compression='"$COMP"'"
     fi
     echo ""
     echo "# Store an additional copy of the latest backup to a standard"
@@ -250,7 +256,7 @@ write_file(){
     if [[ -z "${LATEST}" ]]; then
         echo "#CONFIG_mysql_dump_latest='no'"
     else
-        echo "#CONFIG_mysql_dump_latest='"$LATEST"'"
+        echo "CONFIG_mysql_dump_latest='"$LATEST"'"
     fi
     echo ""
     echo "# Remove all date and time information from the filenames in the latest folder."
