@@ -9,8 +9,8 @@ COPY automysqlbackup /usr/local/bin
 
 RUN chmod +x /usr/local/bin/install.sh \
     && chmod +x /usr/local/bin/start.sh \
-    && chmod +x /usr/local/bin/automysqlbackup
-    #&& /usr/local/bin/install.sh
+    && chmod +x /usr/local/bin/automysqlbackup \
+    && /usr/local/bin/install.sh
     
 ENV MYSQL_USER=             \
     MYSQL_PASSWORD=         \
@@ -30,4 +30,4 @@ ENV MYSQL_USER=             \
     LATEST=no
     
 #CMD ["install.sh"]
-ENTRYPOINT ["start.sh"]
+#ENTRYPOINT ["start.sh"]
