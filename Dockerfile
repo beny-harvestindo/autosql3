@@ -1,13 +1,15 @@
 FROM debian:buster-slim
 
-RUN apt-get update && apt-get install -y wget curl vim git
+RUN apt-get update && apt-get install -y wget curl vim iputils-ping cron
 
 COPY install.sh /usr/local/bin
-
 COPY start.sh /usr/local/bin
+COPY my.cnf /etc/mysql/
+COPY automysqlbackup /usr/local/bin
 
 RUN chmod +x /usr/local/bin/install.sh \
-    && chmod +x /usr/local/bin/start.sh
+    && chmod +x /usr/local/bin/start.sh \
+    && chmod +x /usr/local/bin/automysqlbackup
     #&& /usr/local/bin/install.sh
     
 ENV MYSQL_USER=             \

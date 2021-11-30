@@ -2,7 +2,7 @@
 ##!####/bin/sh
 #
 
-set -e
+set -ex
 
 check_file() {
 FILE=/etc/automysqlbackup/automysqlbackup.conf
@@ -129,20 +129,20 @@ write_file(){
     echo "# Which day do you want weekly backups? (1 to 7 where 1 is Monday)"
     echo "# Set to 0 to disable weekly backups."
     if [[ -z "${DOWEEKLY}" ]]; then
-        echo '#CONFIG_do_weekly="5"'
+        echo 'CONFIG_do_weekly="5"'
     else
         echo '#CONFIG_do_weekly="'$DOWEEKLY'"'
     fi
     echo ""
     echo "# Set rotation of daily backups. VALUE*24hours"
     echo "# If you want to keep only today's backups, you could choose 1, i.e. everything older than 24hours will be removed."
-    echo "#CONFIG_rotation_daily=6"
+    echo "CONFIG_rotation_daily=6"
     echo ""
     echo "# Set rotation for weekly backups. VALUE*24hours"
-    echo "#CONFIG_rotation_weekly=35"
+    echo "CONFIG_rotation_weekly=35"
     echo ""
     echo "# Set rotation for monthly backups. VALUE*24hours"
-    echo "#CONFIG_rotation_monthly=150"
+    echo "CONFIG_rotation_monthly=150"
     echo ""
     echo ""
     echo "# Server Connection Settings"
@@ -158,7 +158,7 @@ write_file(){
     fi
     echo ""
     echo "# Use ssl encryption with mysqldump?"
-    echo "#CONFIG_mysql_dump_usessl='yes'"
+    echo "CONFIG_mysql_dump_usessl='no'"
     echo ""
     echo "# For connections to localhost. Sometimes the Unix socket file must be specified."
     if [[ -z "${SOCKET}" ]]; then
