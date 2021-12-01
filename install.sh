@@ -9,6 +9,7 @@ FILE=/etc/automysqlbackup/automysqlbackup.conf
 if [ -f "$FILE" ]; then
     echo "$FILE found. Destroying..."
     #rm -f $FILE
+    touch /etc/automysqlbackup/automysqlbackup.conf
     write_file >> /etc/automysqlbackup/automysqlbackup.conf
 else
     echo "$FILE does not exist."
