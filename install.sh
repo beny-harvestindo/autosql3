@@ -22,6 +22,12 @@ fi
 }
 
 write_file(){
+    DBEXCREM=""
+    IFS="," read -r -a arr <<< "${DBEXCLUDE}"
+    for i in "${arr[@]}"
+    do
+        DBEXCREM+=" '${i}'"
+    done
     echo "#version=3.0_rc2"
     echo "# Uncomment to change the default values (shown after =)"
     echo "# WARNING:"
@@ -110,7 +116,7 @@ write_file(){
     if [[ -z "${DBEXCLUDE}" ]]; then
         echo "#CONFIG_db_exclude=( 'information_schema' )"
     else
-        echo "CONFIG_db_exclude=( '$DBEXCLUDE' )"
+        echo "CONFIG_db_exclude=($DBEXCREM)"
     fi
     echo ""
     echo "# List of tables to exclude, in the form db_name.table_name"
